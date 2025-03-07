@@ -1,25 +1,25 @@
-{% extends "layout.html" %}
-{% block container %}
-{% import "_macros.html" as macros %}
+{%extends "layout.html"%}
+{%block container%}
+{% import "_macros.html" as macros%}
 
-<form action="" method="POST" method="GET" novalidate class="max-w-md mx-auto">
+<form action="" method="POST" novalidate class="max-w-md mx-auto">
     {{form.csrf_token}}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="id" value="{{ form.id.data }}" />
     <div class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.nombre, class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0
+        {{macros.campoNuevo(form.nombre, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0
         border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500
         focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
 
     <div class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.apaterno, class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0
+        {{macros.campoNuevo(form.apaterno, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0
         border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500
         focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
 
     <div class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.email, class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0
+        {{macros.campoNuevo(form.email, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0
         border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500
         focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
@@ -32,11 +32,11 @@
                 d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
                 clip-rule="evenodd" />
         </svg>
-        Registrar</button>
+        Eliminar</button>
 
     <a href="index"
         class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
         Cancelar
     </a>
 </form>
-{% endblock %}
+{%endblock%}

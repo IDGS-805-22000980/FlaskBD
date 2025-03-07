@@ -29,15 +29,15 @@ def detalles():
     create_form =forms.UserForm2(request.form)
     if request.method == 'GET':
         id=request.args.get('id')
-        alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
-        nom=alum1.nombre
-        ape=alum1.apaterno
-        email=alum1.email
+        alum=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+        nom=alum.nombre
+        ape=alum.apaterno
+        email=alum.email
         return render_template("detalles.html", form=create_form, nom=nom, ape=ape, email=email)
     
 #Insertar Nuevo Alumno
-@app.route("/Alumnos", methods=['GET', 'POST'])
-def Alumnos():
+@app.route("/Alumnos1", methods=['GET', 'POST'])
+def Alumnos1():
     create_form = forms.UserForm2(request.form)
     if request.method == 'POST':
         alum=Alumnos(nombre=create_form.nombre.data,
@@ -48,6 +48,48 @@ def Alumnos():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template("Alumnos1.html", form=create_form)
+
+#Modificar Alumno
+@app.route("/modificar", methods=['GET', 'POST'])
+def modificar():
+    create_form = forms.UserForm2(request.form)
+    if request.method == 'GET':
+        id = request.args.get('id')
+        alum = db.session.query(Alumnos).filter(Alumnos.id == id).first()  
+        create_form.id.data = request.args.get('id')
+        create_form.nombre.data = str.rstrip(alum.nombre)
+        create_form.apaterno.data = alum.apaterno
+        create_form.email.data = alum.email
+    if request.method == 'POST':
+        id=create_form.id.data
+        alum = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        alum.nombre = str.rstrip(create_form.nombre.data)
+        alum.apaterno = create_form.apaterno.data
+        alum.email = create_form.email.data
+        db.session.add(alum)
+        db.session.commit()  
+        flash("Alumno actualizado correctamente")
+        return redirect(url_for('index'))
+    return render_template("modificar.html", form=create_form)
+
+@app.route("/eliminar", methods=['GET', 'POST'])
+def eliminar():
+    create_form = forms.UserForm2(request.form)
+    if request.method == 'GET':
+        id=request.args.get('id')
+        # select * from alumnos where id==id
+        alum = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        create_form.id.data=request.args.get('id')
+        create_form.nombre.data=alum.nombre
+        create_form.apaterno.data=alum.apaterno
+        create_form.email.data=alum.email
+    if request.method == 'POST':
+        id=create_form.id.data
+        alum = Alumnos.query.get(id)
+        db.session.delete(alum)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template("eliminar.html", form=create_form)
 
 if __name__ == '__main__':
     csrf.init_app(app)
